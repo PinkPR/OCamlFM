@@ -18,4 +18,4 @@ let make_short nb =
 let rec make_data f ct samples =
   match ct with
   | 44100. -> []
-  | t -> (make_short (get_freq 32000. f (ct *. 1. /. 44100.)))::(make_data f (ct +. 1.) samples)
+  | t -> (make_short (get_freq 1000. f (ct *. 1. /. 44100.)))::(make_data f (ct +. 1.) samples)
