@@ -9,8 +9,10 @@ let make_short nb =
   in
     tmp := (nb2 land 0xFF00) / 0x100;
     tmp := !tmp lor ((nb2 land 0x00FF) * 0x100);
-    (if nb2 < 0 then
-      tmp := !tmp lor 0x0080);
+    begin
+    if nb2 < 0 then
+      tmp := !tmp lor 0x0080
+    end;
     !tmp
 
 let rec make_data f ct samples =

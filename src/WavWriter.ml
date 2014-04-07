@@ -58,6 +58,7 @@ let rec print_datas datas =
 
 let print_chunk2 chunk2size datas =
   (* data *)
+  Printf.printf "LIST3 %d\n" (List.length datas);
   print_string "data";
   (* SubChunk2Size *)
   print_char (Char.chr (((lil_endian (chunk2size)) land 0xFF000000) / 0x1000000));
@@ -65,9 +66,11 @@ let print_chunk2 chunk2size datas =
   print_char (Char.chr (((lil_endian (chunk2size)) land 0x0000FF00) / 0x100));
   print_char (Char.chr ((lil_endian (chunk2size)) land 0x000000FF));
   (* data *)
+  Printf.printf "LIST2 %d\n" (List.length datas);
   print_datas datas
 
 let print_header chunk2size datas =
+  Printf.printf "LIST1 %d\n" (List.length datas);
   print_chunk0 chunk2size;
   print_chunk1 ();
   print_chunk2 chunk2size datas
