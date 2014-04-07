@@ -15,7 +15,13 @@ let make_short nb =
     end;
     !tmp
 
-let rec make_data f ct samples =
-  match ct with
-  | 44100. -> []
-  | t -> (make_short (get_freq 1000. f (ct *. 1. /. 44100.)))::(make_data f (ct +. 1.) samples)
+let make_data a f samples =
+  let freq = ref 0
+  in
+  for i = 1 to samples do
+    begin
+      freq := make_short (get_freq a f ((float_of_int i) /. 44100.));
+      print_char (Char.chr (!freq land 0x00FF));
+      print_char (Char.chr ((!freq land 0xFF00) / 0x100));
+    end
+  done

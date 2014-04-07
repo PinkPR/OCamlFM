@@ -1,2 +1,8 @@
+let generate_wav a f t =
+  WavWriter.print_header (2 * t * 44100);
+  NoteMaker.make_data a f (t * 44100)
+
 let _ =
-  WavWriter.print_header ( 2 * 44100) (NoteMaker.make_data 440. 0. 44100.)
+  generate_wav  (float_of_string Sys.argv.(1))
+                (float_of_string Sys.argv.(2))
+                (int_of_string Sys.argv.(3))

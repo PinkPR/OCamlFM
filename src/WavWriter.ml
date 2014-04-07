@@ -56,18 +56,16 @@ let rec print_datas datas ct =
                 print_char (Char.chr ((data land 0xFF00) / 0x100));
                 print_datas l (ct + 1))
 
-let print_chunk2 chunk2size datas =
+let print_chunk2 chunk2size =
   (* data *)
   print_string "data";
   (* SubChunk2Size *)
   print_char (Char.chr (((lil_endian (chunk2size)) land 0xFF000000) / 0x1000000));
   print_char (Char.chr (((lil_endian (chunk2size)) land 0x00FF0000) / 0x10000));
   print_char (Char.chr (((lil_endian (chunk2size)) land 0x0000FF00) / 0x100));
-  print_char (Char.chr ((lil_endian (chunk2size)) land 0x000000FF));
-  (* data *)
-  print_datas datas
+  print_char (Char.chr ((lil_endian (chunk2size)) land 0x000000FF))
 
-let print_header chunk2size datas =
+let print_header chunk2size =
   print_chunk0 chunk2size;
   print_chunk1 ();
-  print_chunk2 chunk2size datas 0
+  print_chunk2 chunk2size
