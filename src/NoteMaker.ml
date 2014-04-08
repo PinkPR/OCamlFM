@@ -1,7 +1,7 @@
-let pi = 4. *. (atan 1.)
+let twopi = 8. *. (atan 1.)
 
-let get_freq a f t =
-  a *. (sin (2. *. pi *. f *. t))
+let get_freq a p =
+  a *. (sin (p))
 
 let make_short nb =
   let tmp = ref 0 and
@@ -16,11 +16,13 @@ let make_short nb =
     !tmp
 
 let make_data a f samples =
-  let freq = ref 0
+  let freq = ref 0 and
+      phase = ref 0.
   in
   for i = 1 to samples do
     begin
-      freq := make_short (get_freq a f ((float_of_int i) /. 44100.));
+      freq := make_short (get_freq a !phase);
+      phase := mod_float (!phase +. (twopi *. f /. 44100.)) twopi;
       print_char (Char.chr (!freq land 0x00FF));
       print_char (Char.chr ((!freq land 0xFF00) / 0x100));
     end
