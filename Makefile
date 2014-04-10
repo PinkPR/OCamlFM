@@ -1,10 +1,12 @@
 SRC=  WavWriter.ml          \
+      Oscillators.ml        \
       NoteMaker.ml          \
+      MelodyMaker.ml        \
       main.ml
 
 TARGET= ocamlfm
 
-$(TARGET):
+$(TARGET): $(addprefix src/, $(SRC))
 	cd src; ocamlc $(SRC) -o ../$(TARGET)
 
 clean:

@@ -11,10 +11,10 @@ let print_chunk0 chunk2size =
   (* ChunkID *)
   print_string "RIFF";
   (* ChunkSize *)
-  print_char (Char.chr (((lil_endian (36 + chunk2size)) land 0xFF000000) / 0x1000000));
-  print_char (Char.chr (((lil_endian (36 + chunk2size)) land 0x00FF0000) / 0x10000));
-  print_char (Char.chr (((lil_endian (36 + chunk2size)) land 0x0000FF00) / 0x100));
-  print_char (Char.chr ((lil_endian (36 + chunk2size)) land 0x000000FF));
+  print_char (Char.chr ((((36 + chunk2size)) land 0x0000FF)));
+  print_char (Char.chr ((((36 + chunk2size)) land 0x0000FF00) / 0x100));
+  print_char (Char.chr ((((36 + chunk2size)) land 0x00FF0000) / 0x10000));
+  print_char (Char.chr ((((36 + chunk2size)) land 0xFF000000) / 0x1000000));
   (* FORMAT *)
   print_string "WAVE"
 
@@ -33,20 +33,20 @@ let print_chunk1 () =
   print_char (Char.chr 1);
   print_char (Char.chr 0);
   (* SampleRate *)
-  print_char (Char.chr (((lil_endian (44100)) land 0xFF000000) / 0x1000000));
-  print_char (Char.chr (((lil_endian (44100)) land 0x00FF0000) / 0x10000));
-  print_char (Char.chr (((lil_endian (44100)) land 0x0000FF00) / 0x100));
-  print_char (Char.chr ((lil_endian (44100)) land 0x000000FF));
+  print_char (Char.chr (((44100) land 0x0000FF)));
+  print_char (Char.chr ((((44100)) land 0x0000FF00) / 0x100));
+  print_char (Char.chr (((44100 land 0x00FF0000) / 0x10000)));
+  print_char (Char.chr ((((44100)) land 0xFF000000) / 0x1000000));
   (* ByteRate *)
-  print_char (Char.chr (((lil_endian (44100 * 2)) land 0xFF000000) / 0x1000000));
-  print_char (Char.chr (((lil_endian (44100 * 2)) land 0x00FF0000) / 0x10000));
-  print_char (Char.chr (((lil_endian (44100 * 2)) land 0x0000FF00) / 0x100));
-  print_char (Char.chr ((lil_endian (44100 * 2)) land 0x000000FF));
+  print_char (Char.chr ((((2 * 44100)) land 0x0000FF)));
+  print_char (Char.chr ((((2 * 44100)) land 0x0000FF00) / 0x100));
+  print_char (Char.chr ((((2 * 44100)) land 0x00FF0000) / 0x10000));
+  print_char (Char.chr ((((2 * 44100)) land 0xFF000000) / 0x1000000));
   (* BlockAlign *)
   print_char (Char.chr 2);
   print_char (Char.chr 0);
   (* BitsPerSample *)
-  print_char (Char.chr 16);
+  print_char (Char.chr 0x10);
   print_char (Char.chr 0)
 
 let rec print_datas datas ct =
@@ -60,10 +60,10 @@ let print_chunk2 chunk2size =
   (* data *)
   print_string "data";
   (* SubChunk2Size *)
-  print_char (Char.chr (((lil_endian (chunk2size)) land 0xFF000000) / 0x1000000));
-  print_char (Char.chr (((lil_endian (chunk2size)) land 0x00FF0000) / 0x10000));
-  print_char (Char.chr (((lil_endian (chunk2size)) land 0x0000FF00) / 0x100));
-  print_char (Char.chr ((lil_endian (chunk2size)) land 0x000000FF))
+  print_char (Char.chr ((((chunk2size)) land 0x0000FF)));
+  print_char (Char.chr ((((chunk2size)) land 0x0000FF00) / 0x100));
+  print_char (Char.chr ((((chunk2size)) land 0x00FF0000) / 0x10000));
+  print_char (Char.chr ((((chunk2size)) land 0xFF000000) / 0x1000000))
 
 let print_header chunk2size =
   print_chunk0 chunk2size;
